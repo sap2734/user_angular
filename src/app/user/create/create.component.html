@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <button type="button" style="margin-left: auto;" class="close" data-dismiss="modal" (click)="close()">&times;</button>
+</div>
+<div class="row">
+    <div class="card col-md-6 offset-md-3 offset-md-3">
+        <div class="row">
+            <h3 class="text-center" [ngStyle]="isEditMode ? {'color':'blue','font-size':'20px'} : {'color':'green','font-size':'20px'}">
+                {{ isEditMode ? 'Update for Id ' +this.id : 'Create' }}
+            </h3>
+            
+            <hr/>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" formControlName="name" id="name" class="form-control" (blur)="checkUser(form.get('name')?.value)"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailId">Email Address</label>
+                        <input type="email" formControlName="emailId" id="emailId" class="form-control" (blur)="checkEmail(form.get('emailId')?.value)"
+                               pattern="^[a-z0-9]+@[a-z0-9]+.[a-z]{2,4}$"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" formControlName="password" id="password" class="form-control"/>
+                     </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control"/>
+                     
+                    </div>
+                    <div class="form-group">
+                       <label for="gender">Gender</label>
+                        <input type="radio" formControlName="gender" name="gender" id="male" [value]="'Male'"/>Male
+                        <input type="radio" formControlName="gender" name="gender" id="female" [value]="'Female'"/>Female
+                     </div><br/>
+                    <div class="form-group" *ngFor="let option of optionHobby">
+                        <label for="hobby">
+                        <input type="checkbox" formControlName="hobby" [name]="option.value" [(checked)]="option.checked" (change)="option.checked = !option.checked" >{{option.label}}</label>
+                       </div><br/>
+                    <div class="form-group">
+                        <label for="birthDate">BirthDate</label>
+                        <input type="date" formControlName="birthDate" id="birthDate">
+                    </div>
+                    <div class="form-group" *ngIf="isEditMode">
+                        <label for="photo">Image</label>
+                        <input type="file" formControlName="photo" id="photo" (change)="onFileChanged($event)">
+                    </div>
+                    <button mat-raised-button data-dismiss="modal" style="margin-right: 16px" class="btn btn-primary" type="submit">{{ isEditMode?'Update':'Create'}}</button>
+                    <button style="margin-right: 16px" class="btn btn-primary" type="reset" (click)="resetValue();">Reset</button>
+                    <button mat-raised-button color="primary" type="button" data-dismiss="modal" class="btn btn-primary" (click)="close();">Close</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>

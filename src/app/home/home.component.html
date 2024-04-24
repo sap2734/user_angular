@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><span class="sr-only">Home</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" *ngIf="localStorage.getItem('isLoggedIn')">{{ '' }}</a>
+          <a class="nav-link" routerLink="/login" *ngIf="!localStorage.getItem('isLoggedIn')">{{ 'Login' }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/list" *ngIf="localStorage.getItem('isLoggedIn')">{{ '' }}</a>
+          <a class="nav-link" routerLink="/user/list" *ngIf="!localStorage.getItem('isLoggedIn')">{{ 'User List' }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/address-list" *ngIf="localStorage.getItem('isLoggedIn')">{{ '' }}</a>
+          <a class="nav-link" routerLink="/address-list" *ngIf="!localStorage.getItem('isLoggedIn')">{{ 'Address List' }}</a>
+        </li>
+       </ul>
+    </div>
+</nav>
+<button mat-raised-button (click)="openModel()">Open Modal</button>
+<br>
+<p style="text-align: center;font-size: xx-large ; color: rgb(34, 0, 255);">Welcome to Logiciel solution</p>

@@ -1,0 +1,48 @@
+<div class="row">
+    <h2 style="text-align: center;">User List</h2>
+</div>
+<div>
+    <button (click)="createUser()" class="btn btn-primary btn-sm">Create User</button>
+    <button (click)="logout()" class="btn btn-secondary btn-sm float-end">Logout</button>
+</div>
+<div *ngIf="errors" class="error-message">
+    {{ errors }}
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email Id</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Hobby</th>
+            <th scope="col">BirthDate</th>
+            <th scope="col">Image</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="text-align: center;" *ngIf="!user || user.length === 0">
+            <td colspan="8">No Content</td>
+        </tr>
+        <tr *ngFor="let user of user">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.emailId }}</td>
+            <td>{{ user.gender }}</td>
+            <td>{{ user.hobby }}</td>
+            <td>{{ user.birthDate }}</td>
+            <td>
+                <img [src]="user.imageLocation" alt="Image"/>
+            </td>
+            <td>
+                <button (click)="updateUser(user.id)" style="margin-right: 16px;background-color: green;color: white;" queryParamsHandling="edit">Edit</button>
+                <button (click)="deleteUser(user.id)" style="margin-right: 16px;">Delete</button>
+                <button (click)="userDetails(user.id)">View</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button style="margin-right: 16px;" (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
+<button style="margin-right: 32px" (click)="nextPage()" [disabled]="currentPage === totalPage - 1">Next</button>
+<label>Search:</label><input type="text" style="margin-right: 32px" [(ngModel)]="name" (input)="fetchData()">

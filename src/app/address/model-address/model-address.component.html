@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <button type="button" style="margin-left: auto;" class="close" data-dismiss="modal" (click)="close()">&times;</button>
+</div>
+<div class="row">
+  <h1 class="text-center" [ngStyle]="isEditMode ? {'color':'blue','font-size':'20px'} : {'color':'green','font-size':'20px'}">
+    {{ isEditMode ? 'Update for Id ' +this.id : 'Create' }}
+</h1>
+    <br>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <table>
+        <tr>
+          <td><mat-label>Line1</mat-label></td>
+          <td><mat-form-field>
+              <input matInput id="line1" formControlName="line1">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><mat-label>Line2</mat-label></td>
+          <td><mat-form-field>
+              <input matInput id="line2" formControlName="line2">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+           <td><mat-label>City</mat-label></td>
+           <td><mat-form-field>
+               <input type="text" matInput id="city" name="city" formControlName="city"
+               [matAutocomplete]="auto">
+               <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of cityFilteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+          
+             </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-label>State</mat-label></td>
+            <td><mat-form-field>
+                <input matInput id="state" formControlName="state">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-label>Pincode</mat-label></td>
+            <td><mat-form-field>
+                <input matInput id="pincode" formControlName="pincode" type="number">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-label>Name</mat-label></td>
+            <td>
+              <mat-form-field *ngIf="!isEditMode">
+                <mat-select formControlName="uname" id="uname" [(ngModel)]="_name">
+                  <mat-option *ngFor="let item of name" [value]="item.id">{{ item.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="isEditMode">
+                <input matInput readonly [value]="name[0]?.name">
+              </mat-form-field>
+            </td>
+          </tr>
+          
+      </table>
+      <button mat-raised-button color="primary" type="submit"> Create</button>
+      <button mat-raised-button color="primary" type="button" data-dismiss="modal" (click)="close()">Close</button>
+      
+    </form>
+  </div>
